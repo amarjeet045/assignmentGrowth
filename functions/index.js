@@ -22,35 +22,25 @@ exports.basicOP = functions.https.onRequest((req,res)=>{
     
 
 })*/
-function compareValues(key, order='asc') {
-    return function(a, b) {
-      if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) return 0;
-      let comparison = a[key].localeCompare(b[key]);
-  
-      return (
-        (order == 'desc') ? (comparison * -1) : comparison
-      );
-    };
-  }
+
   
 exports.fetchRequest = functions
   .region("us-central1")
   .https.onRequest((req, res) => {
     const { orderBy } = req.query;
-    const {home }= req.query;
+
 
     if (req.method !== "GET") {
       return res.status(405).json({
         message: "Not allowed"
       });
     }
-   if(orderBy=='asc'||orderBy=='desc'||home=='/'){
-   
+    
+  
+  
     return axios
       .get("https://jsonplaceholder.typicode.com/todos")
       .then(response => {
-         
-         
         response.data.sort((a, b) => {
             return orderBy === "desc" || "" ? b.id - a.id : a.id - b.id;
           });
@@ -61,7 +51,15 @@ exports.fetchRequest = functions
           message:err
         });
       });
-    }
+    
+    
    
+
+   /*
+   else{
+    return res.status(405).json({
+        message: "Not allowed"
+      });
+   }*/
      
   });
