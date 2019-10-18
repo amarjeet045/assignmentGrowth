@@ -20,7 +20,7 @@ exports.fetchRequest = functions
       });
     }
     
-    if(orderBy!=="asc"& orderBy!=="desc"&orderBy!==undefined){
+    if(orderBy!=="asc"&& orderBy!=="desc"&&orderBy!==undefined){
         return res.status(200).json({
             message: "url is not allowded"
           });
